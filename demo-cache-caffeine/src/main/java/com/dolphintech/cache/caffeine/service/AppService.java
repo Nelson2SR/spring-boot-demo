@@ -1,5 +1,6 @@
 package com.dolphintech.cache.caffeine.service;
 
+import com.dolphintech.cache.caffeine.entity.App;
 import com.dolphintech.cache.caffeine.entity.User;
 
 /**
@@ -10,30 +11,22 @@ import com.dolphintech.cache.caffeine.entity.User;
  * @author yangkai.shen
  * @date Created in 2018-11-16 16:53
  */
-public interface UserService {
+public interface AppService {
     /**
-     * 保存或修改用户
+     * 保存或修改应用
      *
-     * @param user 用户对象
+     * @param app 应用对象
      * @return 操作结果
      */
-    User saveOrUpdate(User user);
+    App saveOrUpdate(App app);
 
     /**
-     * 获取用户
+     * 获取应用
      *
      * @param id key值
      * @return 返回结果
      */
-    User get(Long id);
-
-    /**
-     * 获取用户并查询应用
-     *
-     * @param id key值
-     * @return 返回结果
-     */
-    User getUserAndApp(Long id);
+    App get(Long id);
 
     /**
      * 删除

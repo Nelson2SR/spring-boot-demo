@@ -70,7 +70,8 @@
     <module>demo-https</module>
     <module>demo-flyway</module>
     <module>demo-pay</module>
-    <module>demo-cache-caffeine</module>
+    <module>demo-cache-caffeine</module>>
+    <module>demo-time</module>
   </modules>
   <packaging>pom</packaging>
 

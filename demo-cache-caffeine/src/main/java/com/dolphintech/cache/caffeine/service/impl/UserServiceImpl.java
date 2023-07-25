@@ -1,10 +1,13 @@
 package com.dolphintech.cache.caffeine.service.impl;
 
+import com.dolphintech.cache.caffeine.entity.App;
 import com.dolphintech.cache.caffeine.entity.User;
+import com.dolphintech.cache.caffeine.service.AppService;
 import com.dolphintech.cache.caffeine.service.UserService;
 import com.google.common.collect.Maps;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,6 +24,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private AppService appService;
+
     /**
      * 模拟数据库
      */
@@ -62,6 +69,26 @@ public class UserServiceImpl implements UserService {
         log.info("查询用户【id】= {}", id);
         return DATABASES.get(id);
     }
+
+    /**
+     * 获取用户
+     *
+     * @param id key值
+     * @return 返回结果
+     */
+    @Cacheable(value = "user", key = "#id")
+    @Override
+    public User getUserAndApp(Long id) {
+        // 我们假设从数据库读取
+        log.info("查询用户【id】= {}", id);
+
+        App app = appService.get(id);
+        log.info("查询用户的应用 【id】 = {}", app.getId());
+
+        return DATABASES.get(id);
+    }
+
+
 
     /**
      * 删除

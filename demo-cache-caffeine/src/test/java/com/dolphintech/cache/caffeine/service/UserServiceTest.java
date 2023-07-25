@@ -1,6 +1,7 @@
 package com.dolphintech.cache.caffeine.service;
 
 import com.dolphintech.cache.caffeine.SpringBootDemoCacheCaffeineApplicationTests;
+import com.dolphintech.cache.caffeine.entity.App;
 import com.dolphintech.cache.caffeine.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -20,6 +21,9 @@ public class UserServiceTest extends SpringBootDemoCacheCaffeineApplicationTests
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AppService appService;
+
     /**
      * 获取两次，查看日志验证缓存
      */
@@ -33,6 +37,24 @@ public class UserServiceTest extends SpringBootDemoCacheCaffeineApplicationTests
         User user2 = userService.get(1L);
         log.debug("【user2】= {}", user2);
         // 查看日志，只打印一次日志，证明缓存生效
+    }
+
+    /**
+     * 获取两次，查看日志验证缓存
+     */
+    @Test
+    public void getUserAndApp() {
+        // 模拟查询id为1的用户
+        User user1 = userService.getUserAndApp(1L);
+        log.debug("【user1】= {}", user1);
+
+        // 再次查询
+        User user2 = userService.getUserAndApp(1L);
+        log.debug("【user2】= {}", user2);
+        // 查看日志，只打印一次日志，证明缓存生效
+
+        App app = appService.get(1L);
+        log.debug("【app】= {}", app);
     }
 
     /**
